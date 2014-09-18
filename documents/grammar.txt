@@ -1,0 +1,32 @@
+<program> -> <toplvlstmts>
+<toplvlstmts> -> <toplvlstmt>
+	| <toplvlstmt> endline <toplvlstmts>
+
+<toplvlstmt> -> <stmts>
+	| fun <ident> () as <type> <optional_stmts> toss <expr> endfun 
+	| <ident> < - <expr>
+	| <type> <ident> < - <expr>
+	| take <ident> 
+	| give <ident>
+
+<stmts> -> <stmt>
+	| <stmt> endline <stmts>
+<stmt> -> if (<boolexp>) <optional_stmts> endif
+	| if (<boolexp>) <optional_stmts> else <optional_stmts> endif
+	| if (<boolexp>) <optional_stmts> elf (<boolexp>) <optional_stmts> endif 
+	| if (<boolexp>) <optional_stmts> elf (<boolexp>) <optional_stmts> else <optional_stmts> endif
+
+	| while (<boolexp>) <optional_stmts> endwhile
+
+<optional_stmts> -> e 
+	| <stmts>
+
+<params> -> <param> , <params> 
+	| <param>
+	| e
+
+<param> -> <type> <ident>
+
+<expr>
+
+<ident>
