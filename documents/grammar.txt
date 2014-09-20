@@ -3,7 +3,7 @@
 	| <toplvlstmt> endline <toplvlstmts>
 
 <toplvlstmt> -> <stmts>
-	| fun <ident> () as <type> <optional_stmts> toss <expr> endfun 
+	| fun <ident> (<opt_params>) as <type> <optional_stmts> toss <expr> endfun 
 	| <ident> < - <expr>
 	| <type> <ident> < - <expr>
 	| take <ident> 
@@ -15,18 +15,50 @@
 	| if (<boolexp>) <optional_stmts> else <optional_stmts> endif
 	| if (<boolexp>) <optional_stmts> elf (<boolexp>) <optional_stmts> endif 
 	| if (<boolexp>) <optional_stmts> elf (<boolexp>) <optional_stmts> else <optional_stmts> endif
-
 	| while (<boolexp>) <optional_stmts> endwhile
 
 <optional_stmts> -> e 
 	| <stmts>
 
-<params> -> <param> , <params> 
-	| <param>
+<opt_params> -> <params>
 	| e
 
+<params> -> <param> , <params> 
+	| <param>
+	
 <param> -> <type> <ident>
 
-<expr>
 
-<ident>
+<expr> -> <expr> <op> <expr>
+	| <expr> <op> <expr>
+	| <ident> <op> <ident>
+	| <ident> <op> <expr>
+	| <ident>
+	| <literal> <op> <ident>
+	| <literal> <op> <literal>
+	| (<expr>)
+	| <ident> <op> <literal>
+
+<boolexp> -> <boolexp> AND <boolexp>
+	| <boolexp> OR <boolexp>
+	| NOT <boolexp>
+	| (<boolexp>)
+	| <ident> <boolop> <boolexp>
+	| <ident> <boolop> <ident>
+	| <literal> <boolop> <ident>
+	| <ident> <boolop> <literal>
+	| <literal> <boolop> <literal>
+
+<type> -> bool
+	| in
+
+<boolop> -> <
+	| <=
+	| =
+	| >
+	| >=
+	| !=
+
+<ident> -> from regex
+	| <ident>
+<literal> -> from regex
