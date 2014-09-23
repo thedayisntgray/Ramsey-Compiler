@@ -8,6 +8,8 @@
 	| <type> <ident> < - <expr>
 	| take <ident> 
 	| give <ident>
+	| array [<literal>] as <type>
+	| array [<ident>] as <type>
 
 <stmts> -> <stmt>
 	| <stmt> endline <stmts>
@@ -51,6 +53,12 @@
 
 <type> -> bool
 	| in
+
+<op> ->   +
+	| -
+	| *
+	| /
+	| %
 
 <boolop> -> <
 	| <=
