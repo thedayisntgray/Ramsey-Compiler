@@ -17,8 +17,8 @@
 	| <type> <ident> < - <expr>
 	| take <ident> 
 	| give <ident>
-	| <type> [<literal>]
 	| <type> <ident> [<literal>]
+	| <ident> [<literal>] <- <literal>
 	| <expr>
 
 <elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n"
@@ -41,13 +41,11 @@
 
 
 <expr> -> <expr> <op> <expr>
-	| <ident> <op> <ident>
 	| <expr> <op> <ident>
 	| <ident>
-	| <literal> <op> <ident>
-	| <literal> <op> <literal>
+	| <literal>
 	| (<expr>)
-	| <ident> <op> <literal>
+	| <ident> [<literal>]
 
 <boolexp> -> <boolexp> AND <boolexp>
 	| <boolexp> OR <boolexp>
