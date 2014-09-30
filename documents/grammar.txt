@@ -15,10 +15,6 @@
 	| <ident> < - <expr>
 	| <type> <ident>
 	| <type> <ident> < - <expr>
-	| take <ident> 
-	| give <ident>
-	| <type> <ident> [<literal>]
-	| <ident> [<literal>] <- <literal>
 	| <expr>
 
 <elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n"
@@ -39,7 +35,6 @@
 	
 <param> -> <type> <ident>
 
-
 <expr> -> <expr> <op> <expr>
 	| <expr> <op> <ident>
 	| <ident>
@@ -59,6 +54,8 @@
 
 <type> -> bool
 	| in
+	| small
+	| big
 
 <op> ->   +
 	| -
@@ -74,5 +71,6 @@
 	| !=
 
 <ident> -> from regex
-	| <ident>
+	| (<type>) <ident>
+	
 <literal> -> from regex
