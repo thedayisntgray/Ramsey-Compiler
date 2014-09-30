@@ -68,6 +68,10 @@ std::string getTokenType(std::string lexeme){
         return "BOO\n";
     if (std::regex_match (lexeme, std::regex("^in$") ))
         return "IN\n";
+    if (std::regex_match (lexeme, std::regex("^big$") ))
+        return "BIG\n";
+    if (std::regex_match (lexeme, std::regex("^small$") ))
+        return "SMALL\n";
 
     return "Error: Unclassified Lexeme\n";
 }
