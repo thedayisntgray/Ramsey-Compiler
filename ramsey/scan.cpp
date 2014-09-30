@@ -41,7 +41,7 @@ int main () {
   {
     // t = new token;
     std::stringstream ss;
-    
+
     char c = is.get();
     std::string cn = charToStr(c);
 
@@ -59,7 +59,7 @@ int main () {
       std::cout << "cn is: " << cn << "\n";
       lex += cn;
       std::cout << "LEX: " << lex << "\n";
-      
+
       std::cout << "peek is: " << peek << "\n";
       // if(peek != " "){
       //   break;
@@ -159,7 +159,7 @@ int main () {
       }
       if(lex == "<" && peek == "="){
         c = is.get();
-        lex += c; 
+        lex += c;
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -170,7 +170,7 @@ int main () {
 
       if(lex == ">" && peek == "="){
         c = is.get();
-        lex += c; 
+        lex += c;
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -179,7 +179,7 @@ int main () {
       }
       if(lex == "!" && peek == "="){
         c = is.get();
-        lex += c; 
+        lex += c;
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -188,7 +188,7 @@ int main () {
       }
       if(lex == "!" && peek == "="){
         c = is.get();
-        lex += c; 
+        lex += c;
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -216,6 +216,8 @@ int main () {
           (lex == "take" && peek == "") ||
           (lex == "not" && (peek == "(" || peek == "")) ||
           (lex == "in" && peek == "") ||
+		  (lex == "big" && peek == "") ||
+		  (lex == "small" && peek == "") ||
           (lex == "boo" && peek == "") ||
           (lex == "mod" && peek == "") ||
           (lex == "if" && (peek == "" || peek == "(")) ||
