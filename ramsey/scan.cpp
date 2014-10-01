@@ -31,9 +31,6 @@ int main () {
   std::string lex = "";
   int lineNum = 1;
 
-  // token *t;
-  // std::queue<token*> qlist;
-
   token t;
   std::queue<token> qlist;
 
@@ -52,37 +49,31 @@ int main () {
 
     while(is.good()){
 
-
       if(cn == "" || cn == " ")
         break;
 
-      std::cout << "cn is: " << cn << "\n";
+      // std::cout << "cn is: " << cn << "\n";
       lex += cn;
-      std::cout << "LEX: " << lex << "\n";
+      // std::cout << "LEX: " << lex << "\n";
 
-      std::cout << "peek is: " << peek << "\n";
-      // if(peek != " "){
-      //   break;
-      // }
-      // lex += cn;
-      // if(peek == " " && cn != " "){
-      //   lex += cn;
-      // }
+      // std::cout << "peek is: " << peek << "\n";
 
       //single parens
-      if(lex == "("){ //lex == "("){
-      std::cout << "Reached" << "\n";
-
+      if(lex == "("){
         t.token = getTokenType(lex);
-        std::cout << "2-------" << "\n";
-
         t.lexeme = lex;
         t.lineNumber = lineNum;
         lex = "";
         break;
       }
-      std::cout << "3-------" << "\n";
-
+      // ident + single parentheses EX: add(
+      if(peek == "("){
+        t.token = getTokenType(lex);
+        t.lexeme = lex;
+        t.lineNumber = lineNum;
+        lex = "";
+        break;
+      }
       if(lex == ")"){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -90,7 +81,13 @@ int main () {
         lex = "";
         break;
       }
-      std::cout << "4-------" << "\n";
+      if(peek == ")"){
+        t.token = getTokenType(lex);
+        t.lexeme = lex;
+        t.lineNumber = lineNum;
+        lex = "";
+        break;
+      }
 
       //single operators
       if(lex == "="){
@@ -114,8 +111,6 @@ int main () {
         lex = "";
         break;
       }
-            std::cout << "7-------" << "\n";
-
       if(lex == "/"){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -140,10 +135,7 @@ int main () {
         lex = "";
         break;
       }
-            std::cout << "10-------" << "\n";
-
       if(lex == "<" && (getTokenType(peek) == "IDENT"  || getTokenType(peek) == "LITERAL" || peek == " ") ){
-      //lex == "<" && getTokenType(peek) == "IDENT"  || getTokenType(peek) == "LITERAL" || peek = " "){
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -166,8 +158,6 @@ int main () {
         lex = "";
         break;
       }
-                  std::cout << "13-------" << "\n";
-
       if(lex == ">" && peek == "="){
         c = is.get();
         lex += c;
@@ -195,8 +185,6 @@ int main () {
         lex = "";
         break;
       }
-                  std::cout << "14-------" << "\n";
-
       if( lex == "\n"){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -216,8 +204,8 @@ int main () {
           (lex == "take" && peek == "") ||
           (lex == "not" && (peek == "(" || peek == "")) ||
           (lex == "in" && peek == "") ||
-		  (lex == "big" && peek == "") ||
-		  (lex == "small" && peek == "") ||
+		      (lex == "big" && peek == "") ||
+		      (lex == "small" && peek == "") ||
           (lex == "boo" && peek == "") ||
           (lex == "mod" && peek == "") ||
           (lex == "if" && (peek == "" || peek == "(")) ||
@@ -230,11 +218,8 @@ int main () {
         t.lexeme = lex;
         t.lineNumber = lineNum;
         lex = "";
-        std::cout << "why isnt this reached" << "\n";
         break;
       }
-                        std::cout << "15-------" << "\n";
-
       if(peek == ""){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -247,14 +232,15 @@ int main () {
         break;
       }
 
-        std::cout << "============================" << "\n";
       c = is.get();
       cn = charToStr(c);
 
       p = is.peek();
       peek = charToStr(p);
     }
-    // qlist.push(t);
+    if (cn != "" and cn != " ")
+      qlist.push(t);
+
 
     // c = is.get();
     // cn = charToStr(c);
@@ -265,10 +251,10 @@ int main () {
   }
 
   is.close();
-  // while (!qlist.empty())
-  // {
-  //   std::cout << "Lexeme: " << qlist.front().lexeme << "Token: " << qlist.front().token << "\n";
-  //   qlist.pop();
-  // }
+  while (!qlist.empty())
+  {
+    std::cout << "Lexeme: " << qlist.front().lexeme << "\n" << "Token: " << qlist.front().token << "\n";
+    qlist.pop();
+  }
 
 }
