@@ -4,7 +4,7 @@
 
 std::string getTokenType(std::string lexeme){
     //LITERAL
-    if (std::regex_match (lexeme, std::regex("[0-9]+") ))
+    if (std::regex_match (lexeme, std::regex("-?[0-9]+") ))
         return "LITERAL\n";
     //END OF LINE
     if (std::regex_match (lexeme, std::regex("\n") ))
