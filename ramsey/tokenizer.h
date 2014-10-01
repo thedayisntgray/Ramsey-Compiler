@@ -5,73 +5,73 @@
 std::string getTokenType(std::string lexeme){
     //LITERAL
     if (std::regex_match (lexeme, std::regex("-?[0-9]+") ))
-        return "LITERAL\n";
+        return "LITERAL";
     //END OF LINE
     if (std::regex_match (lexeme, std::regex("\n") ))
-        return "EOL\n";
+        return "EOL";
     //ASSIGN
     if (std::regex_match (lexeme, std::regex("^<-$") ))
-        return "ASSIGN\n";
+        return "ASSIGN";
     //PLUS
     if (std::regex_match (lexeme, std::regex("^\\+$") ))
-        return "PLUS\n";
+        return "PLUS";
     //MINUS
     if (std::regex_match (lexeme, std::regex("^-$") ))
-        return "MINUS\n";
+        return "MINUS";
     //DIVIDE
     if (std::regex_match (lexeme, std::regex("^/$") ))
-        return "DIV\n";
+        return "DIV";
     //MULTIPLY
     if (std::regex_match (lexeme, std::regex("^\\*$") ))
-        return "MUL\n";
+        return "MUL";
     //MODULAR DIVISION
     if (std::regex_match (lexeme, std::regex("^mod$") ))
-        return "MOD\n";
+        return "MOD";
     if (std::regex_match (lexeme, std::regex(">=|<=|!=|=|<|>") ))
-        return "COMPOP\n";
+        return "COMPOP";
     if (std::regex_match (lexeme, std::regex("^if$") ))
-        return "IF\n";
+        return "IF";
     if (std::regex_match (lexeme, std::regex("^elf$") ))
-        return "ELF\n";
+        return "ELF";
     if (std::regex_match (lexeme, std::regex("^else$") ))
-        return "ELSE\n";
+        return "ELSE";
     if (std::regex_match (lexeme, std::regex("^endif$") ))
-        return "ENDIF\n";
+        return "ENDIF";
     if (std::regex_match (lexeme, std::regex("^while$") ))
-        return "WHILE\n";
+        return "WHILE";
     if (std::regex_match (lexeme, std::regex("^endwhile$") ))
-        return "ENDWHILE\n";
+        return "ENDWHILE";
     if (std::regex_match (lexeme, std::regex("^take$") ))
-        return "TAKE\n";
+        return "TAKE";
     if (std::regex_match (lexeme, std::regex("^toss$") ))
-        return "TOSS\n";
+        return "TOSS";
     if (std::regex_match (lexeme, std::regex("^fun$") ))
-        return "FUN\n";
+        return "FUN";
     if (std::regex_match (lexeme, std::regex("^endfun$") ))
-        return "ENDFUN\n";
+        return "ENDFUN";
     if (std::regex_match (lexeme, std::regex("^as$") ))
-        return "AS\n";
+        return "AS";
     if (std::regex_match (lexeme, std::regex("^and$") ))
-        return "AND\n";
+        return "AND";
     if (std::regex_match (lexeme, std::regex("^or$") ))
-        return "OR\n";
+        return "OR";
     if (std::regex_match (lexeme, std::regex("^give$") ))
-        return "GIVE\n";
+        return "GIVE";
     if (std::regex_match (lexeme, std::regex("\\(") ))
-        return "LPAREN\n";
+        return "LPAREN";
     if (std::regex_match (lexeme, std::regex("^\\)$") ))
-        return "RPAREN\n";
+        return "RPAREN";
     if (std::regex_match (lexeme, std::regex("^boo$") ))
-        return "BOO\n";
+        return "BOO";
     if (std::regex_match (lexeme, std::regex("^in$") ))
-        return "IN\n";
+        return "IN";
     if (std::regex_match (lexeme, std::regex("^big$") ))
-        return "BIG\n";
+        return "BIG";
     if (std::regex_match (lexeme, std::regex("^small$") ))
-        return "SMALL\n";
+        return "SMALL";
         //IDENTIFIER
     if (std::regex_match (lexeme, std::regex("[a-z,A-Z_]+[a-zA-Z0-9_]*") ))
-        return "IDENT\n";
+        return "IDENT";
 
     return "Error: Unclassified Lexeme\n";
 }
