@@ -228,7 +228,7 @@ int main () {
           (lex == "elf" && (peek == "" || peek == "(")) ||
           (lex == "else" && peek == "") ||
           (lex == "endif" && peek == "") ||
-          (lex == "give" && peek == "")
+          (lex == "give" && peek == "") ||
           (lex == "give" && peek == "") ){
 
         t.token = getTokenType(lex);
