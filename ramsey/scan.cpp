@@ -220,15 +220,15 @@ int main () {
           (lex == "toss" && peek == "") ||
           (lex == "take" && peek == "") ||
           (lex == "not" && (peek == "(" || peek == "")) ||
-          (lex == "in" && peek == "") ||
-	  (lex == "big" && peek == "") ||
-	  (lex == "small" && peek == "") ||
+	        (lex == "big" && peek == "") ||
+	        (lex == "small" && peek == "") ||
           (lex == "boo" && peek == "") ||
           (lex == "mod" && peek == "") ||
           (lex == "if" && (peek == "" || peek == "(")) ||
           (lex == "elf" && (peek == "" || peek == "(")) ||
           (lex == "else" && peek == "") ||
           (lex == "endif" && peek == "") ||
+          (lex == "give" && peek == "")
           (lex == "give" && peek == "") ){
 
         t.token = getTokenType(lex);
