@@ -3,7 +3,6 @@
 #include <istream>
 #include <sstream>
 #include <queue>
-
 #include "tokenizer.h"
 
 struct token
@@ -36,7 +35,6 @@ int main () {
 
   while (is.good())
   {
-    // t = new token;
     std::stringstream ss;
 
     char c = is.get();
@@ -52,12 +50,7 @@ int main () {
       if(cn == "" || cn == " ")
         break;
 
-      // std::cout << "cn is: " << cn << "\n";
       lex += cn;
-      // std::cout << "LEX: " << lex << "\n";
-
-      // std::cout << "peek is: " << peek << "\n";
-
       //single parens
       if(lex == "("){
         t.token = getTokenType(lex);
@@ -66,8 +59,19 @@ int main () {
         lex = "";
         break;
       }
-      // ident + single parentheses EX: add(
-      if(peek == "("){
+      if( peek == "(" ||
+          peek == ")" ||
+          peek == "+" ||
+          peek == "*" ||
+          peek == "/" ||
+          ((getTokenType(lex) == "IDENT" ||
+            getTokenType(lex) == "PLUS" ||
+            getTokenType(lex) == "MINUS" ||
+            getTokenType(lex) == "DIV" ||
+            getTokenType(lex) == "MUL" ||
+            getTokenType(lex) == "RPAREN")
+            && peek == "-")
+          ){
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -81,14 +85,6 @@ int main () {
         lex = "";
         break;
       }
-      if(peek == ")"){
-        t.token = getTokenType(lex);
-        t.lexeme = lex;
-        t.lineNumber = lineNum;
-        lex = "";
-        break;
-      }
-
       //single operators
       if(lex == "="){
         t.token = getTokenType(lex);
@@ -104,6 +100,27 @@ int main () {
         lex = "";
         break;
       }
+      //case for negative numbers
+      if(lex == "-" && getTokenType(peek) == "LITERAL"){
+        c = is.get();
+        cn = charToStr(c); 
+
+        while(getTokenType(cn) == "LITERAL"){
+          lex += cn;
+          c = is.get();
+          cn = charToStr(c);
+
+        }
+        t.token = getTokenType(lex);
+        t.lexeme = lex;
+        t.lineNumber = lineNum;
+        lex = "";
+        break;
+
+        p = is.peek();
+        peek = charToStr(p);
+      }
+      //TODO These two if `cases should be combined
       if(lex == "-"){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -204,8 +221,8 @@ int main () {
           (lex == "take" && peek == "") ||
           (lex == "not" && (peek == "(" || peek == "")) ||
           (lex == "in" && peek == "") ||
-		      (lex == "big" && peek == "") ||
-		      (lex == "small" && peek == "") ||
+	  (lex == "big" && peek == "") ||
+	  (lex == "small" && peek == "") ||
           (lex == "boo" && peek == "") ||
           (lex == "mod" && peek == "") ||
           (lex == "if" && (peek == "" || peek == "(")) ||
@@ -240,14 +257,6 @@ int main () {
     }
     if (cn != "" and cn != " ")
       qlist.push(t);
-
-
-    // c = is.get();
-    // cn = charToStr(c);
-
-    // p = is.peek();
-    // peek = charToStr(p);
-    // lex = "";
   }
 
   is.close();
@@ -256,5 +265,4 @@ int main () {
     std::cout << "Lexeme: " << qlist.front().lexeme << "\n" << "Token: " << qlist.front().token << "\n";
     qlist.pop();
   }
-
 }
