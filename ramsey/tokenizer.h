@@ -3,9 +3,6 @@
 #include <regex>
 
 std::string getTokenType(std::string lexeme){
-    //IDENTIFIER
-    if (std::regex_match (lexeme, std::regex("[a-z,A-Z_]+[a-zA-Z0-9_]*") ))
-        return "IDENT\n";
     //LITERAL
     if (std::regex_match (lexeme, std::regex("[0-9]+") ))
         return "LITERAL\n";
@@ -16,7 +13,7 @@ std::string getTokenType(std::string lexeme){
     if (std::regex_match (lexeme, std::regex("^<-$") ))
         return "ASSIGN\n";
     //PLUS
-    if (std::regex_match (lexeme, std::regex("^+$") ))
+    if (std::regex_match (lexeme, std::regex("^\\+$") ))
         return "PLUS\n";
     //MINUS
     if (std::regex_match (lexeme, std::regex("^-$") ))
@@ -32,7 +29,7 @@ std::string getTokenType(std::string lexeme){
         return "MOD\n";
     if (std::regex_match (lexeme, std::regex(">=|<=|!=|=|<|>") ))
         return "COMPOP\n";
-    if (std::regex_match (lexeme, std::regex("^$if$") ))
+    if (std::regex_match (lexeme, std::regex("^if$") ))
         return "IF\n";
     if (std::regex_match (lexeme, std::regex("^elf$") ))
         return "ELF\n";
@@ -72,6 +69,9 @@ std::string getTokenType(std::string lexeme){
         return "BIG\n";
     if (std::regex_match (lexeme, std::regex("^small$") ))
         return "SMALL\n";
+        //IDENTIFIER
+    if (std::regex_match (lexeme, std::regex("[a-z,A-Z_]+[a-zA-Z0-9_]*") ))
+        return "IDENT\n";
 
     return "Error: Unclassified Lexeme\n";
 }
