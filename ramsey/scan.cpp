@@ -16,7 +16,6 @@ int main (int argc, char *argv[]) {
 
   std::string filename = preprocessor(source);
 
-  // std::cin.get (str,256);    // get c-string
   std::ifstream is(filename);     // open file
 
   std::string lex = "";
@@ -27,7 +26,6 @@ int main (int argc, char *argv[]) {
 
   while (is.good())
   {
-    // std::stringstream ss;
 
     char c = is.get();
     std::string cn = charToStr(c);
@@ -35,9 +33,13 @@ int main (int argc, char *argv[]) {
     char p = is.peek();
     std::string peek = charToStr(p);
 
+    // if(c == '\n' || p == '\n' || getTokenType(cn) == "EOL" || getTokenType(peek) == "EOL" )
+    //   lineNum++;
+
     while(is.good()){
-      if("\n" == cn || "\n" == peek || lex == "\n")
-        lineNum++;
+
+    if(c == '\n'  ||  getTokenType(cn) == "EOL" || getTokenType(peek) == "EOL" )
+      lineNum++;
 
       if(cn == "" || cn == " ")
         break;
