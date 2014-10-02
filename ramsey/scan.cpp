@@ -3,28 +3,19 @@
 #include <istream>
 #include <sstream>
 #include <queue>
+#include "lexi.h"
 #include "tokenizer.h"
 
-struct token
-{
-  std::string token;
-  std::string lexeme;
-  int lineNumber;
-};
-
-std::string charToStr(char c){
-  std::stringstream ss;
-  std::string str;
-  ss << c;
-  ss >> str;
-  return str;
-}
-
 int main () {
-  char str[256];
+  //char str[256];
 
   std::cout << "Enter the name of an existing text file: ";
-  std::cin.get (str,256);    // get c-string
+  std::string source;
+  std::cin >> source;
+
+  std::string str = preprocessor(source);
+
+  // std::cin.get (str,256);    // get c-string
   std::ifstream is(str);     // open file
 
   std::string lex = "";
@@ -42,8 +33,6 @@ int main () {
 
     char p = is.peek();
     std::string peek = charToStr(p);
-
-    std::cout << "outer loop" << std::endl;
 
     while(is.good()){
 
@@ -64,6 +53,8 @@ int main () {
           peek == "+" ||
           peek == "*" ||
           peek == "/" ||
+          peek == "," ||
+
           ((getTokenType(lex) == "IDENT" ||
             getTokenType(lex) == "PLUS" ||
             getTokenType(lex) == "MINUS" ||
@@ -79,6 +70,13 @@ int main () {
         break;
       }
       if(lex == ")"){
+        t.token = getTokenType(lex);
+        t.lexeme = lex;
+        t.lineNumber = lineNum;
+        lex = "";
+        break;
+      }
+      if(lex == ","){
         t.token = getTokenType(lex);
         t.lexeme = lex;
         t.lineNumber = lineNum;
@@ -120,7 +118,7 @@ int main () {
         p = is.peek();
         peek = charToStr(p);
       }
-      //TODO These two if `cases should be combined
+      //TODO These two if cases should be combined
       if(lex == "-"){
         t.token = getTokenType(lex);
         t.lexeme = lex;
@@ -229,7 +227,7 @@ int main () {
           (lex == "else" && peek == "") ||
           (lex == "endif" && peek == "") ||
           (lex == "give" && peek == "") ||
-          (lex == "give" && peek == "") ){
+          (lex == "chop" && peek == "") ){
 
         t.token = getTokenType(lex);
         t.lexeme = lex;

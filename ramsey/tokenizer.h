@@ -28,7 +28,9 @@ std::string getTokenType(std::string lexeme){
     if (std::regex_match (lexeme, std::regex("^mod$") ))
         return "MOD";
     if (std::regex_match (lexeme, std::regex(">=|<=|!=|=|<|>") ))
-        return "COMPOP";
+        return "COMPOP";    
+    if (std::regex_match (lexeme, std::regex("^,$") ))
+        return "COMMA";
     if (std::regex_match (lexeme, std::regex("^if$") ))
         return "IF";
     if (std::regex_match (lexeme, std::regex("^elf$") ))
@@ -57,7 +59,7 @@ std::string getTokenType(std::string lexeme){
         return "OR";
     if (std::regex_match (lexeme, std::regex("^give$") ))
         return "GIVE";
-    if (std::regex_match (lexeme, std::regex("\\(") ))
+    if (std::regex_match (lexeme, std::regex("^\\($") ))
         return "LPAREN";
     if (std::regex_match (lexeme, std::regex("^\\)$") ))
         return "RPAREN";
@@ -69,8 +71,10 @@ std::string getTokenType(std::string lexeme){
         return "BIG";
     if (std::regex_match (lexeme, std::regex("^small$") ))
         return "SMALL";
+    if (std::regex_match (lexeme, std::regex("^chop$") ))
+        return "CHOP";
         //IDENTIFIER
-    if (std::regex_match (lexeme, std::regex("[a-z,A-Z_]+[a-zA-Z0-9_]*") ))
+    if (std::regex_match (lexeme, std::regex("[a-zA-Z]+[a-zA-Z0-9_]*") ))
         return "IDENT";
 
     return "Error: Unclassified Lexeme\n";
