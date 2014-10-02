@@ -6,17 +6,18 @@
 #include "lexi.h"
 #include "tokenizer.h"
 
-int main () {
+int main (int argc, char *argv[]) {
   //char str[256];
 
-  std::cout << "Enter the name of an existing text file: ";
-  std::string source;
-  std::cin >> source;
+  //std::cout << "Enter the name of an existing text file: ";
+  // std::cout << "name of program is " << argv[0] << "\n";
+  std::string source = argv[1];
+  // std::cin >> source;
 
-  std::string str = preprocessor(source);
+  std::string filename = preprocessor(source);
 
   // std::cin.get (str,256);    // get c-string
-  std::ifstream is(str);     // open file
+  std::ifstream is(filename);     // open file
 
   std::string lex = "";
   int lineNum = 1;
@@ -26,7 +27,7 @@ int main () {
 
   while (is.good())
   {
-    std::stringstream ss;
+    // std::stringstream ss;
 
     char c = is.get();
     std::string cn = charToStr(c);
@@ -35,6 +36,8 @@ int main () {
     std::string peek = charToStr(p);
 
     while(is.good()){
+      if("\n" == cn || "\n" == peek || lex == "\n")
+        lineNum++;
 
       if(cn == "" || cn == " ")
         break;
@@ -261,6 +264,7 @@ int main () {
   while (!qlist.empty())
   {
     std::cout << "Lexeme: " << qlist.front().lexeme << "\n" << "Token: " << qlist.front().token << "\n";
+    std::cout << "Line Number" << qlist.front().lineNumber << "\n";
     qlist.pop();
   }
 }
