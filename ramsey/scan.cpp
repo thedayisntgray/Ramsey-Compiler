@@ -265,8 +265,10 @@ int main (int argc, char *argv[]) {
   is.close();
   while (!qlist.empty())
   {
-    std::cout << "Lexeme: " << qlist.front().lexeme << "\n" << "Token: " << qlist.front().token << "\n";
-    std::cout << "Line Number" << qlist.front().lineNumber << "\n";
+    std::cout << qlist.front().token << "\n";
+
+    // std::cout << "Lexeme: " << qlist.front().lexeme << "\n" << "Token: " << qlist.front().token << "\n";
+    // std::cout << "Line Number: " << qlist.front().lineNumber << "\n";
     qlist.pop();
   }
 }

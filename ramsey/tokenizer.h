@@ -77,5 +77,5 @@ std::string getTokenType(std::string lexeme){
     if (std::regex_match (lexeme, std::regex("[a-zA-Z]+[a-zA-Z0-9_]*") ))
         return "IDENT";
 
-    return "Error: Unclassified Lexeme\n";
+    return "INVALID";
 }
