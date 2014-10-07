@@ -40,7 +40,6 @@
 	| <ident>
 	| <literal>
 	| (<expr>)
-	| <ident> [<literal>]
 
 <boolexp> -> <boolexp> AND <boolexp>
 	| <boolexp> OR <boolexp>
