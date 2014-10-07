@@ -46,6 +46,7 @@
 	| NOT <boolexp>
 	| (<boolexp>)
 	| <ident> <boolop> <boolexp>
+	| <ident> <boolop> <expr>
 	| <ident> <boolop> <ident>
 	| <literal> <boolop> <ident>
 	| <ident> <boolop> <literal>
