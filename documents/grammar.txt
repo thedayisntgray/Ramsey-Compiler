@@ -1,6 +1,8 @@
 <program> -> <toplvlstmts>
-<toplvlstmts> -> <toplvlstmt>
-	| <toplvlstmt> "\n" <toplvlstmts>
+<toplvlstmts> -> <toplvlstmt> "\n" <toplvlstmtsA>
+
+<toplvlstmtsA> -> <toplvlstmts>
+	| e
 
 <toplvlstmt> -> <stmts>
 	| fun <ident> (<opt_params>) as <type> "\n" <fun_stmts> "\n" toss <expr> "\n" endfun 
