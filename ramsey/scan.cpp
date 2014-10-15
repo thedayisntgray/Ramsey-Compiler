@@ -38,8 +38,16 @@ int main (int argc, char *argv[]) {
 
     while(is.good()){
 
-    if(c == '\n'  ||  getTokenType(cn) == "EOL" || getTokenType(peek) == "EOL" )
+    if(c == '\n'  ||  getTokenType(cn) == "EOL" || getTokenType(peek) == "EOL" ){
       lineNum++;
+        t.token = "EOL";
+        t.lexeme = '\n';
+        t.lineNumber = lineNum;
+        lex = "";
+        qlist.push(t);
+        break;
+
+    }
 
       if(cn == "" || cn == " ")
         break;
