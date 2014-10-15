@@ -40,7 +40,7 @@
 	| <ident>
 	| <literal>
 	| (<expr>)
-	| <ident> [<literal>]
+	| chop (<expr>)
 
 <boolexp> -> <boolexp> AND <boolexp>
 	| <boolexp> OR <boolexp>
@@ -71,6 +71,5 @@
 	| !=
 
 <ident> -> from regex
-	| (<type>) <ident>
 	
 <literal> -> from regex
