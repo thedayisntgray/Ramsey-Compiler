@@ -9,18 +9,26 @@
 
 <stmts> -> <stmt>
 	| <stmt> "\n" <stmts>
-<stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" endif
-	| if (<boolexp>) "\n" <optional_stmts> "\n" else "\n" <optional_stmts> "\n" endif
-	| if (<boolexp>) "\n" <optional_stmts> "\n" <elves> endif 
-	| if (<boolexp>) "\n" <optional_stmts> "\n" <elves> else "\n" <optional_stmts> "\n" endif
+
+<stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
 	| <ident> < - <expr>
 	| <type> <ident>
-	| <type> <ident> < - <expr>
+	| <type> <ident> <- <expr>
 	| <expr>
 
-<elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n"
-	| elf (<boolexp>) "\n" <optional_stmts> "\n" <elves>
+<stmtA> -> endif
+	|	else "\n" <optional_stmts> "\n" endif
+	|	<elves> <stmtB>
+
+<stmtB> -> endif
+	| else "\n" <optional_stmts> "\n" endif
+
+
+<elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n" <elvesA>
+
+<elvesA> -> <elves>
+	| e
 
 <optional_stmts> -> e 
 	| <stmts>
@@ -32,8 +40,10 @@
 <opt_params> -> <params>
 	| e
 
-<params> -> <param> , <params> 
-	| <param>
+<params> -> <param> <paramsA>
+
+<paramsA> -> , <params>
+	| e
 	
 <param> -> <type> <ident>
 
@@ -44,16 +54,18 @@
 	| (<expr>)
 	| chop (<expr>)
 
-<boolexp> -> <boolexp> AND <boolexp>
-	| <boolexp> OR <boolexp>
+<boolexp> -> <boolexpA>
 	| NOT <boolexp>
 	| (<boolexp>)
 	| <ident> <boolop> <boolexp>
 	| <ident> <boolop> <expr>
 	| <ident> <boolop> <ident>
-	| <literal> <boolop> <ident>
 	| <ident> <boolop> <literal>
+	| <literal> <boolop> <ident>
 	| <literal> <boolop> <literal>
+
+<boolexpA> -> OR <boolexp>
+	| AND <boolexp>
 
 <type> -> bool
 	| in
