@@ -47,25 +47,33 @@
 	
 <param> -> <type> <ident>
 
-<expr> -> <expr> <op> <expr>
-	| <expr> <op> <ident>
+<expr> -> <expr> <exprA>
 	| <ident>
 	| <literal>
 	| (<expr>)
 	| chop (<expr>)
 
+<exprA> -> op <exprB>
+
+<exprB> -> <expr>
+	| <ident>
+
 <boolexp> -> <boolexpA>
 	| NOT <boolexp>
 	| (<boolexp>)
-	| <ident> <boolop> <boolexp>
-	| <ident> <boolop> <expr>
-	| <ident> <boolop> <ident>
-	| <ident> <boolop> <literal>
-	| <literal> <boolop> <ident>
-	| <literal> <boolop> <literal>
+	| <ident> <boolop> <boolexpB>
+	| <literal> <boolop> <boolexpC>
 
 <boolexpA> -> OR <boolexp>
 	| AND <boolexp>
+
+<boolexpB> -> <boolexp>
+	| <expr>
+	| <ident>
+	| <literal>
+
+<boolexpC> -> <ident>
+	| <literal>
 
 <type> -> bool
 	| in
