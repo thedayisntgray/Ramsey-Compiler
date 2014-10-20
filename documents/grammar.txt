@@ -25,6 +25,9 @@
 
 <stmtB> -> endif
 	| else "\n" <optional_stmts> "\n" endif
+	
+<stmtC> -> <- <expr>
+	| e
 
 <stmtC> -> <- <expr>
 	| e
