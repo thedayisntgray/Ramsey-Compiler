@@ -13,8 +13,7 @@
 <stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
 	| <ident> < - <expr>
-	| <type> <ident>
-	| <type> <ident> <- <expr>
+	| <type> <ident> <stmtC>
 	| <expr>
 
 <stmtA> -> endif
@@ -23,6 +22,9 @@
 
 <stmtB> -> endif
 	| else "\n" <optional_stmts> "\n" endif
+	
+<stmtC> -> <- <expr>
+	| e
 
 
 <elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n" <elvesA>
