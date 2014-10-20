@@ -55,7 +55,7 @@
 	| (<expr>)
 	| chop (<expr>)
 
-<exprA> -> op <exprB>
+<exprA> -> <op> <exprB>
 
 <exprB> -> <expr>
 	| <ident>
