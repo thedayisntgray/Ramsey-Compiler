@@ -7,14 +7,16 @@
 <toplvlstmt> -> <stmts>
 	| fun <ident> (<opt_params>) as <type> "\n" <fun_stmts> "\n" toss <expr> "\n" endfun 
 
-<stmts> -> <stmt>
-	| <stmt> "\n" <stmts>
+<stmts> -> <stmt> <stmtX>
+
+
+<stmtX> -> "\n" <stmts>
+	| e
 
 <stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
 	| <ident> < - <expr>
-	| <type> <ident>
-	| <type> <ident> <- <expr>
+	| <type> <ident> <stmtC>
 	| <expr>
 
 <stmtA> -> endif
@@ -24,6 +26,8 @@
 <stmtB> -> endif
 	| else "\n" <optional_stmts> "\n" endif
 
+<stmtC> -> <- <expr>
+	| e
 
 <elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n" <elvesA>
 
@@ -47,16 +51,15 @@
 	
 <param> -> <type> <ident>
 
-<expr> -> <expr> <exprA>
-	| <ident>
+<expr> -> <exprA> <exprTail>
+	
+<exprTail> -> <op> <exprA>
+	| e
+
+<exprA> -> <ident>
 	| <literal>
 	| (<expr>)
 	| chop (<expr>)
-
-<exprA> -> op <exprB>
-
-<exprB> -> <expr>
-	| <ident>
 
 <boolexp> -> <boolexpA>
 	| NOT <boolexp>
