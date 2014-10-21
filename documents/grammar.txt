@@ -7,10 +7,10 @@
 <toplvlstmt> -> <stmts>
 	| fun <ident> (<opt_params>) as <type> "\n" <fun_stmts> "\n" toss <expr> "\n" endfun 
 
-<stmts> -> <stmt> <stmtX>
+<stmts> -> <stmt> "\n" <stmtX>
 
 
-<stmtX> -> "\n" <stmts>
+<stmtX> -> <stmts>
 	| e
 
 <stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
@@ -26,9 +26,6 @@
 <stmtB> -> endif
 	| else "\n" <optional_stmts> "\n" endif
 	
-<stmtC> -> <- <expr>
-	| e
-
 <stmtC> -> <- <expr>
 	| e
 
