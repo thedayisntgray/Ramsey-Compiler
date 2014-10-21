@@ -15,9 +15,9 @@
 
 <stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
-	| <ident> < - <expr>
+	| <ident> <identTail>
 	| <type> <ident> <stmtC>
-	| <expr>
+	| <exprB>
 
 <stmtA> -> endif
 	|	else "\n" <optional_stmts> "\n" endif
@@ -28,6 +28,9 @@
 	
 <stmtC> -> <- <expr>
 	| e
+	
+<identTail> -> <- <expr>
+	| <exprTail>
 
 <elves> -> elf (<boolexp>) "\n" <optional_stmts> "\n" <elvesA>
 
@@ -58,6 +61,10 @@
 
 <exprA> -> <ident>
 	| <literal>
+	| (<expr>)
+	| chop (<expr>)
+	
+<exprB> -> <literal>
 	| (<expr>)
 	| chop (<expr>)
 
@@ -99,3 +106,4 @@
 <ident> -> from regex
 	
 <literal> -> from regex
+//Add ++ to literals in lexer
