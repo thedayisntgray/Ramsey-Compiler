@@ -12,23 +12,10 @@ std::string getTokenType(std::string lexeme){
     //ASSIGN
     if (std::regex_match (lexeme, std::regex("^<-$") ))
         return "ASSIGN";
-    //PLUS
-    if (std::regex_match (lexeme, std::regex("^\\+$") ))
-        return "PLUS";
-    //MINUS
-    if (std::regex_match (lexeme, std::regex("^-$") ))
-        return "MINUS";
-    //DIVIDE
-    if (std::regex_match (lexeme, std::regex("^/$") ))
-        return "DIV";
-    //MULTIPLY
-    if (std::regex_match (lexeme, std::regex("^\\*$") ))
-        return "MUL";
-    //MODULAR DIVISION
-    if (std::regex_match (lexeme, std::regex("^mod$") ))
-        return "MOD";
     if (std::regex_match (lexeme, std::regex(">=|<=|!=|=|<|>") ))
-        return "COMPOP";    
+        return "COMPOP";
+    if (std::regex_match (lexeme, std::regex("\\+|-|/|\\*|mod") ))
+	return "NUMOP";
     if (std::regex_match (lexeme, std::regex("^,$") ))
         return "COMMA";
     if (std::regex_match (lexeme, std::regex("^if$") ))
@@ -63,14 +50,8 @@ std::string getTokenType(std::string lexeme){
         return "LPAREN";
     if (std::regex_match (lexeme, std::regex("^\\)$") ))
         return "RPAREN";
-    if (std::regex_match (lexeme, std::regex("^boo$") ))
-        return "BOO";
-    if (std::regex_match (lexeme, std::regex("^in$") ))
-        return "IN";
-    if (std::regex_match (lexeme, std::regex("^big$") ))
-        return "BIG";
-    if (std::regex_match (lexeme, std::regex("^small$") ))
-        return "SMALL";
+    if (std::regex_match (lexeme, std::regex("boo|in|big|small") ))
+	return "TYPE";
     if (std::regex_match (lexeme, std::regex("^chop$") ))
         return "CHOP";
         //IDENTIFIER

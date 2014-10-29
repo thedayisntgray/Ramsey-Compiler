@@ -10,7 +10,7 @@ int main()
     {
         cout << "Enter lexeme to be classified:" << endl;
         cin >> lexeme;
-        cout << getTokenType(lexeme);
+        cout << getTokenType(lexeme) << '\n';
         //break;
     }
 }
