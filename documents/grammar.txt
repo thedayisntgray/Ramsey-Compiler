@@ -17,11 +17,11 @@
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
 	| <ident> <identTail>
 	| <type> <ident> <stmtC>
-	| <exprB>
+	| <expr>
 
 <stmtA> -> endif
 	|	else "\n" <optional_stmts> "\n" endif
-	|	<elves> <stmtB>
+	|	<elves> <stmtB> 
 
 <stmtB> -> endif
 	| else "\n" <optional_stmts> "\n" endif
@@ -54,35 +54,70 @@
 	
 <param> -> <type> <ident>
 
-<expr> -> <exprA> <exprTail>
-	
-<exprTail> -> <op> <exprA>
-	| e
+-------------------------------------
+// New stuff
+<expr> -> <ident> <exprTailB>
+        | <numLit> <exprTailA>
+        | <boolLit> <boolexpTail>
+        | ( <parenexpr>
+        | (<expr>)
+        | chop (<chopTail>) <exprTailA>
 
-<exprA> -> <ident>
-	| <literal>
-	| (<expr>)
-	| chop (<expr>)
-	
-<exprB> -> <literal>
-	| (<expr>)
-	| chop (<expr>)
+<chopTail> -> <numLit> <numExprTailW/Op>
+        | <ident> <numExprTailW/Op>
+        
+<exprTailA> -> <boolop> <boolNumExprTail>
+        | <op> <numExpr>
+        | e
+        
+<exprTailB> -> <boolexpTail>
+        | <boolop> <boolNumExprTail>
+        | <op> <numExpr>
+        
+<boolexp> -> <boolLit> <boolexpTail>
+        | NOT <boolexp>
+        | <ident> <identFollow>
+        | (<boolexp>) <boolexpTail>
+        | <numLit> <evalToBoolFollow>
+        
+<identFollow> -> <boolexpTail>
+        | <evalToBoolFollow>
+        
+<evalToBoolFollow> -> <boolop> <boolNumExprTail>
+        | <numExprTailW/Op> <boolop> <boolNumExprTail>
+        
+<numExpr> -> <numLit> <numExprTailW/Op>
+        | <ident> <numExprTailW/Op>
+        | chop (<chopTail>) <numExprTailW/Op>
+        | (<numExpr>) <numExprTail w/op>
 
-<boolexp> -> <boolexpA>
-	| NOT <boolexp>
-	| (<boolexp>)
-	| <ident> <boolop> <boolexpB>
-	| <literal> <boolop> <boolexpC>
+<boolexpTail> -> And <boolexp>
+        | OR <boolexp>
+        | e
 
-<boolexpA> -> OR <boolexp>
-	| AND <boolexp>
+<boolNumExprTail> -> <numExpr> <boolexpTail>
 
-<boolexpB> -> <boolexp>
-	| <expr>
+<numExprTail w/op> -> <op> <numExpr>
+        | e
 
-<boolexpC> -> <ident>
-	| <literal>
-\\WHY DO WE HAVE BOOLEXPRC?
+<parenExpr> -> <ident> <exprTailBParen>
+        | <numLit> <exprTailAParen>
+        | ( <parenExpr> <parenExpr>
+        | chop (<chopTail>) <exprTailAParen>
+        | <boolLit> <boolexpTailParen>
+        | )
+
+<exprTailBParen> -> <boolexpTail> ) <boolexpTail> 
+        | <boolop> <boolNumExprTail> ) <boolexpTail>
+        | <op> <numExpr> ) <exprTailA> 
+
+<exprTailAParen> -> <boolop> <boolNumExprTail> ) <boolexpTail>
+        | <op> <numExpr> ) <ExprTailA>
+
+<boolexpTailParen> -> AND <boolexp> ) <boolexpTail>
+        | OR <boolexp> ) <boolexpTail>
+        | ) <boolexpTail>
+----------------------------------------------------
 
 <type> -> bool
 	| in
