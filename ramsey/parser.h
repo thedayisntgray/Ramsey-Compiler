@@ -318,8 +318,15 @@ void boolExprTail(stack<tokenObject> s, queue<tokenObject> & q)
 		match(s,q,q.front(),"OR");
 		boolexp(s,q);
 	}
-	else if(peek(q) == "RPAREN" || peek(q) == "EOL")
-		return;
+	else if(peek(q) == "EOL")
+	{
+		match(s,q,q.front(),"EOL");
+		// return;
+	}
+	// else if(peek(q) == "RPAREN")
+	// {
+	// 	match(s,q,q.front(),"RPAREN");
+	// }
 	else
 		return;
 }
@@ -384,7 +391,8 @@ void identFollow(stack<tokenObject> s, queue<tokenObject> & q)
 void exprTailB(stack<tokenObject> s, queue<tokenObject> & q)
 {
 	cout << "Entering Function exprTailB" << endl;
-	if(peek(q) == "AND" || peek(q) == "OR" || peek(q) == "RPAREN")
+
+	if(peek(q) == "AND" || peek(q) == "OR" || peek(q) == "RPAREN" || peek(q) == "EOL")
 	{
 		boolExprTail(s,q);
 	}
@@ -458,6 +466,7 @@ void expr(stack<tokenObject> s, queue<tokenObject> & q)
 	{
 		match(s,q,q.front(),"LPAREN");
 		parenExpr(s,q);
+		parenExpr(s,q);
 	}
 	else if(peek(q) == "CHOP")
 	{
@@ -523,7 +532,10 @@ void fun_stmts(stack<tokenObject> s, queue<tokenObject> & q)
 {
 	cout << "Entering Function fun_stmts" << endl;
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
+	{
 		stmts(s,q);
+		fun_stmts(s,q);
+	}
 	else if(peek(q) == "TOSS"){
 		match(s,q,q.front(),"TOSS");
 		expr(s,q);
@@ -537,12 +549,16 @@ void fun_stmts(stack<tokenObject> s, queue<tokenObject> & q)
 void optional_stmts(stack<tokenObject> s, queue<tokenObject> & q)
 {
 	cout << "Entering Function optional_stmts" << endl;
-	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
-		stmts(s,q);
-	else if(peek(q) == "EOL")
-		return;
-	else
-		return;
+	// if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
+	// {
+	// 	stmts(s,q);
+	// 	match(s,q,q.front(),"EOL");
+	// }
+	// else if(peek(q) == "EOL")
+	// 	return;
+	// else
+	// 	return;
+	fun_stmts(s,q);
 }
 
 void elvesA(stack<tokenObject> s, queue<tokenObject> & q)
@@ -607,6 +623,7 @@ void stmtB(stack<tokenObject> s, queue<tokenObject> & q)
 void stmtA(stack<tokenObject> s, queue<tokenObject> & q)
 {
 	cout << "Entering Function stmtA" << endl;
+	cout << "PEEK OF Q IN STATEMENT A " << peek(q) << endl;
 	if(peek(q) == "ENDIF")
 		match(s,q,q.front(),"ENDIF");
 	else if(peek(q) == "ELSE")
@@ -637,7 +654,6 @@ void stmt(stack<tokenObject> s, queue<tokenObject> & q)
 		match(s,q,q.front(),"RPAREN");
 		match(s,q,q.front(),"EOL");
 		optional_stmts(s,q);
-		match(s,q,q.front(),"EOL");
 		stmtA(s,q);
 	}
 	else if(peek(q) == "WHILE")
@@ -648,7 +664,6 @@ void stmt(stack<tokenObject> s, queue<tokenObject> & q)
 		match(s,q,q.front(),"RPAREN");
 		match(s,q,q.front(),"EOL");
 		optional_stmts(s,q);
-		match(s,q,q.front(),"EOL");
 		match(s,q,q.front(),"ENDWHILE");
 	}
 	else if(peek(q) == "TYPE")
@@ -733,11 +748,9 @@ void toplvlstmts(stack<tokenObject> s, queue<tokenObject> & q)
 	{
 		cout << "Entering toplvlstmts " << endl;
 		toplvlstmt(s,q);
-		return;
 		match(s,q,q.front(),"EOL");
 		toplvlstmtsA(s,q);
 		cout << "Leaving function program..." << endl;
-
 	}
 	else
 		return;

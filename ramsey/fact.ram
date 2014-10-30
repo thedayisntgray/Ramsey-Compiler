@@ -4,7 +4,7 @@ fun factorial(in x) as in
     else
         toss (x * factorial (x-1))
     endif
-
+    toss x
 endfun
 in x
 in y <- factorial(x)
