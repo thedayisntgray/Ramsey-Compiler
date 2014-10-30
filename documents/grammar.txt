@@ -1,3 +1,4 @@
+// strip leading endlines in tokenizer
 <program> -> <toplvlstmts>
 <toplvlstmts> -> <toplvlstmt> "\n" <toplvlstmtsA>
 
@@ -83,8 +84,7 @@
 <identFollow> -> <boolexpTail>
         | <evalToBoolFollow>
         
-<evalToBoolFollow> -> <boolop> <boolNumExprTail>
-        | <numExprTailW/Op> <boolop> <boolNumExprTail>
+<evalToBoolFollow> -> <numExprTailW/Op> <boolop> <boolNumExprTail>
         
 <numExpr> -> <numLit> <numExprTailW/Op>
         | <ident> <numExprTailW/Op>
