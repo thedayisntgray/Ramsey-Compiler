@@ -1,3 +1,4 @@
+// strip leading endlines in tokenizer
 <program> -> <toplvlstmts>
 <toplvlstmts> -> <toplvlstmt> "\n" <toplvlstmtsA>
 
