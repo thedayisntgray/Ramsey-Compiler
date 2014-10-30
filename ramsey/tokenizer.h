@@ -5,7 +5,10 @@
 std::string getTokenType(std::string lexeme){
 	//LITERAL
 	if (std::regex_match (lexeme, std::regex("-?[0-9]+") ))
-		return "LITERAL";
+		return "NUMLIT";
+	//BOOL LITERAL
+	if (std::regex_match (lexeme, std::regex("true|false") ))
+		return "BOOLIT";	
 	//END OF LINE
 	if (std::regex_match (lexeme, std::regex("\n") ))
 		return "EOL";
@@ -30,8 +33,6 @@ std::string getTokenType(std::string lexeme){
 		return "WHILE";
 	if (std::regex_match (lexeme, std::regex("^endwhile$") ))
 		return "ENDWHILE";
-	if (std::regex_match (lexeme, std::regex("^take$") ))
-		return "TAKE";
 	if (std::regex_match (lexeme, std::regex("^toss$") ))
 		return "TOSS";
 	if (std::regex_match (lexeme, std::regex("^fun$") ))
@@ -44,8 +45,6 @@ std::string getTokenType(std::string lexeme){
 		return "AND";
 	if (std::regex_match (lexeme, std::regex("^or$") ))
 		return "OR";
-	if (std::regex_match (lexeme, std::regex("^give$") ))
-		return "GIVE";
 	if (std::regex_match (lexeme, std::regex("^\\($") ))
 		return "LPAREN";
 	if (std::regex_match (lexeme, std::regex("^\\)$") ))
