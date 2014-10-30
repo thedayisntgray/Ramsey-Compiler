@@ -12,7 +12,4 @@ fun factorial(in x) as in
 endfun
 
 in x
-give "Enter number to be factorialized."
-take x
 in y <- factorial(x)
-give x " factorialized is " y
