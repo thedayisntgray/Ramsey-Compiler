@@ -61,7 +61,6 @@
         | <numLit> <exprTailA>
         | <boolLit> <boolexpTail>
         | ( <parenexpr>
-        | (<expr>)
         | chop (<chopTail>) <exprTailA>
 
 <chopTail> -> <numLit> <numExprTailW/Op>
