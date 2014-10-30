@@ -216,17 +216,16 @@ int main (int argc, char *argv[]) {
 			}
 			c = is.get();
 			cn = charToStr(c);
-
 			p = is.peek();
 			peek = charToStr(p);
-			}
-			if (cn != "" and cn != " ")
-				qlist.push(t);
 		}
-
-		is.close();
-		while (!qlist.empty()){
-			std::cout << qlist.front().token << "\n";
-			qlist.pop();
-		}
+		if (cn != "" and cn != " ")
+			qlist.push(t);
 	}
+
+	is.close();
+	while (!qlist.empty()){
+		std::cout << qlist.front().token << "\n";
+		qlist.pop();
+	}
+}
