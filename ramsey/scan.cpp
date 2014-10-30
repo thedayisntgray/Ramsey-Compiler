@@ -5,6 +5,7 @@
 #include <queue>
 #include "lexi.h"
 #include "tokenizer.h"
+#include "parser.h"
 
 int main (int argc, char *argv[]) {
 
@@ -18,8 +19,8 @@ int main (int argc, char *argv[]) {
 	std::string lex = "";
 	int lineNum = 1;
 
-	token t;
-	std::queue<token> qlist;
+	tokenObject t;
+	std::queue<tokenObject> qlist;
 
 	while (is.good())
 	{
@@ -224,8 +225,18 @@ int main (int argc, char *argv[]) {
 	}
 
 	is.close();
-	while (!qlist.empty()){
-		std::cout << qlist.front().token << "\n";
-		qlist.pop();
-	}
+	stack<tokenObject> s;
+	
+	// while (!qlist.empty()){
+	// 		std::cout << qlist.front().token << "\n";
+	// 		qlist.pop();
+	// }
+
+
+
+	program(s,qlist);
+	if(qlist.empty())
+		cout << "Acceptable syntax" << endl;
+	else
+		cout << "Failure" << endl;
 }

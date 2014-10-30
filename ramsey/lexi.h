@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <regex>
 
-struct token
+struct tokenObject
 {
   std::string token;
   std::string lexeme;

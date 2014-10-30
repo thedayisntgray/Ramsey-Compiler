@@ -1,8 +1,4 @@
-
-
-
 fun factorial(in x) as in
-
     if (x = 1)
         toss x
     else
@@ -10,6 +6,5 @@ fun factorial(in x) as in
     endif
 
 endfun
-
 in x
 in y <- factorial(x)
