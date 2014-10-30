@@ -748,7 +748,7 @@ void program(stack<tokenObject> s, queue<tokenObject>  & q)
 	
 	cout << q.front().token << endl;
 
-	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "BOO" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP" || peek(q) == "FUN" || peek(q) == "EOL")
+	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP" || peek(q) == "FUN" || peek(q) == "EOL")
 	{
 		toplvlstmts(s,q);
 		cout << "Leaving function program..." << endl;
