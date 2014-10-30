@@ -1,0 +1,7 @@
+fun exponent (small value, small power) as small
+ small i <- 0
+    while (i < power)
+        value <- value * value
+        i <- i + 1
+    endwhile
+endfun
