@@ -16,7 +16,6 @@
 
 <stmt> -> if (<boolexp>) "\n" <optional_stmts> "\n" <stmtA>
 	| while (<boolexp>) "\n" <optional_stmts> "\n" endwhile
-	| <ident> <identTail>
 	| <type> <ident> <stmtC>
 	| <expr>
 
