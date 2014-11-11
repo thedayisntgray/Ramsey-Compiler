@@ -142,7 +142,7 @@ void toplvlstmtsA(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void toplvlstmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
-void program(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
+void program(stack<tokenObject> s, queue<tokenObject> & q);
 
 void boolexp(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
@@ -803,10 +803,11 @@ void toplvlstmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 	}
 }
 
-void program(stack<tokenObject> s, queue<tokenObject>  & q, int & flag)
+void program(stack<tokenObject> s, queue<tokenObject>  & q)
 {
 
 	cout << q.front().token << endl;
+  int flag = 0;
 
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP" || peek(q) == "FUN" || peek(q) == "EOL")
 	{
