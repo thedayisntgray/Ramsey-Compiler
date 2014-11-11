@@ -16,15 +16,13 @@ void match(stack<tokenObject> s, queue<tokenObject> & q, tokenObject _t, string 
 		s.push(_t);
 		q.pop();
 		cout << "NEXT TOKEN: " << q.front().token << endl; //token
-
-
-
 	}
-	else{
-		cout << "Invalid Token matching on line" << _t.lineNumber << endl;
-		cout << "*Invalid Token *" << _t.token << endl;
-		flag = 1;
-	}
+  else{
+    cout << "Invalid Token matching on line" << _t.lineNumber << endl;
+    cout << "Matched against" << expected_value << endl;
+    flag = 1;
+  }
+	
 }
 
 void numLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
