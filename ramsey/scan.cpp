@@ -12,7 +12,10 @@ int main (int argc, char *argv[]) {
 	//allows compiled program to accept a source file via command line
 	std::string source = argv[1];
 
-	std::string filename = preprocessor(source);
+	std::string filename = source;
+
+	//need to rewrite the preproceesor
+	// std::string filename = preprocessor(source);
 
 	std::ifstream is(filename);
 
@@ -233,10 +236,12 @@ int main (int argc, char *argv[]) {
 	// }
 
 
-
-	program(s,qlist);
-	if(qlist.empty())
+	int flag = 0;
+	program(s,qlist,flag);
+	if(qlist.empty() && flag == 0)
 		cout << "Acceptable syntax" << endl;
-	else
+	else{
 		cout << "Failure" << endl;
+		cout << qlist.front().token << endl;
+	}
 }

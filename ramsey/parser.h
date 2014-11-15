@@ -16,55 +16,17 @@ void match(stack<tokenObject> s, queue<tokenObject> & q, tokenObject _t, string 
 		s.push(_t);
 		q.pop();
 		cout << "NEXT TOKEN: " << q.front().token << endl; //token
+
+
+
 	}
-  else{
-    cout << "Invalid Token matching on line" << _t.lineNumber << endl;
-    cout << "Matched against" << expected_value << endl;
-    flag = 1;
-  }
-	
+	else{
+		cout << "Invalid Token matching on line " << _t.lineNumber << endl;
+		cout << "*Invalid Token *" << expected_value << endl;
+		flag = 1;
+	}
 }
-
-void numLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	if(peek(q) == "NUMLIT")
-		match(s,q,q.front(),"NUMLIT",flag);
-}
-
-void booLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	if(peek(q) == "BOOLIT")
-		match(s,q,q.front(),"BOOLIT",flag);
-}
-
-void ident(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	cout << "Entering ident " << endl;
-	if(peek(q) == "IDENT")
-		match(s,q,q.front(),"IDENT",flag);
-}
-
-void boolop(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	cout << "Entering boolop " << endl;
-	if(peek(q) == "COMPOP")
-		match(s,q,q.front(),"COMPOP",flag);
-}
-
-void op(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	cout << "Entering op " << endl;
-	if(peek(q) == "NUMOP")
-		match(s,q,q.front(),"NUMOP",flag);
-}
-
-void type(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
-{
-	cout << "Entering type " << endl;
-
-	if(peek(q) == "TYPE")
-		match(s,q,q.front(),"TYPE",flag);
-}
+void fun_ident(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void boolexp(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
@@ -106,6 +68,10 @@ void chopTail(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void expr(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
+void fun_param(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
+
+void fun_params(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
+
 void param(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void paramsA(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
@@ -140,7 +106,58 @@ void toplvlstmtsA(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void toplvlstmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
-void program(stack<tokenObject> s, queue<tokenObject> & q);
+void program(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
+
+void numLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	if(peek(q) == "NUMLIT")
+		match(s,q,q.front(),"NUMLIT",flag);
+}
+
+void booLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	if(peek(q) == "BOOLIT")
+		match(s,q,q.front(),"BOOLIT",flag);
+}
+
+void ident(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Entering ident " << endl;
+	if(peek(q) == "IDENT"){
+		match(s,q,q.front(),"IDENT",flag);
+		fun_param(s,q,flag);
+	}
+}
+
+void fun_ident(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Entering function ident " << endl;
+	if(peek(q) == "IDENT"){
+		match(s,q,q.front(),"IDENT",flag);
+	}
+}
+
+void boolop(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Entering boolop " << endl;
+	if(peek(q) == "COMPOP")
+		match(s,q,q.front(),"COMPOP",flag);
+}
+
+void op(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Entering op " << endl;
+	if(peek(q) == "NUMOP")
+		match(s,q,q.front(),"NUMOP",flag);
+}
+
+void type(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Entering type " << endl;
+
+	if(peek(q) == "TYPE")
+		match(s,q,q.front(),"TYPE",flag);
+}
 
 void boolexp(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
@@ -338,14 +355,7 @@ void boolExprTail(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 		match(s,q,q.front(),"OR",flag);
 		boolexp(s,q,flag);
 	}
-	else if(peek(q) == "EOL")
-	{
-		match(s,q,q.front(),"EOL",flag);
-		return;
-	}
-	else if(peek(q) == "RPAREN" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "BOOLIT" || peek(q) == "CHOP")
-		return;
-	else if(peek(q) == "RPAREN" || peek(q) == "LPAREN")
+	else if(peek(q) == "RPAREN" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "BOOLIT" || peek(q) == "CHOP" || peek(q) == "EOL" )
 		return;
 }
 
@@ -516,6 +526,26 @@ void expr(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 	}
 }
 
+void fun_param(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	cout << "Enter function param" << endl;
+	if(peek(q) == "LPAREN")
+	{
+		match(s,q,q.front(),"LPAREN",flag);
+		expr(s,q,flag);
+		fun_params(s,q,flag);
+	}
+}
+
+void fun_params(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
+{
+	if(peek(q) == "COMMA")
+	{
+		match(s,q,q.front(),"COMMA",flag);
+		fun_param(s,q,flag);
+	}
+}
+
 void param(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
 	cout << "Entering Function param" << endl;
@@ -572,14 +602,12 @@ void fun_stmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
 	{
 		stmts(s,q,flag);
-		fun_stmts(s,q,flag);
 	}
 	else if(peek(q) == "TOSS"){
 		match(s,q,q.front(),"TOSS",flag);
 		expr(s,q,flag);
+		match(s,q,q.front(),"EOL",flag);
 	}
-	else if(peek(q) == "EOL")
-		return;
 }
 
 void optional_stmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
@@ -661,7 +689,6 @@ void stmtA(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 		match(s,q,q.front(),"ELSE",flag);
 		match(s,q,q.front(),"EOL",flag);
 		optional_stmts(s,q,flag);
-		match(s,q,q.front(),"EOL",flag);
 		match(s,q,q.front(),"ENDIF",flag);
 	}
 	else if(peek(q) == "ELF")
@@ -717,10 +744,9 @@ void stmt(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 void stmtX(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
 	cout << "Entering Function stmtX" << endl;
+	match(s,q,q.front(),"EOL",flag);
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "BOOLIT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
 		stmts(s,q,flag);
-	else if(peek(q) == "EOL")
-		return;
 }
 
 void stmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
@@ -729,7 +755,6 @@ void stmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP")
 	{
 		stmt(s,q,flag);
-		match(s,q,q.front(),"EOL",flag);
 		stmtX(s,q,flag);
 	}
 	else
@@ -748,7 +773,7 @@ void toplvlstmt(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 		//functional declaration
 		match(s,q,q.front(),"FUN",flag);
 		cout << "current front->" << q.front().lexeme << endl;
-		ident(s,q,flag);
+		fun_ident(s,q,flag);
 		match(s,q,q.front(),"LPAREN",flag);
 		opt_params(s,q,flag);
 		match(s,q,q.front(),"RPAREN",flag);
@@ -758,10 +783,8 @@ void toplvlstmt(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 
 
 		fun_stmts(s,q,flag);
-		match(s,q,q.front(),"EOL",flag); //i think this is righ
 		match(s,q,q.front(),"TOSS",flag);
 		expr(s,q,flag);
-		cout << "heluuuuurrrr-----" << endl;
 		match(s,q,q.front(),"EOL",flag);
 		match(s,q,q.front(),"ENDFUN",flag);
 		cout << "End of toplvlstmt" << endl;
@@ -801,11 +824,10 @@ void toplvlstmts(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 	}
 }
 
-void program(stack<tokenObject> s, queue<tokenObject>  & q)
+void program(stack<tokenObject> s, queue<tokenObject>  & q, int& flag)
 {
 
 	cout << q.front().token << endl;
-  int flag = 0;
 
 	if(peek(q) == "IF" || peek(q) == "WHILE" || peek(q) == "TYPE" || peek(q) == "IDENT" || peek(q) == "NUMLIT" || peek(q) == "LPAREN" || peek(q) == "CHOP" || peek(q) == "FUN" || peek(q) == "EOL")
 	{
