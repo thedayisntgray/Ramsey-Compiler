@@ -12,10 +12,10 @@ int main (int argc, char *argv[]) {
 	//allows compiled program to accept a source file via command line
 	std::string source = argv[1];
 
-	std::string filename = source;
+	// std::string filename = source;
 
 	//need to rewrite the preproceesor
-	// std::string filename = preprocessor(source);
+	std::string filename = preprocessor(source);
 
 	std::ifstream is(filename);
 
