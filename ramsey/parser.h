@@ -110,14 +110,19 @@ void program(stack<tokenObject> s, queue<tokenObject> & q, int & flag);
 
 void numLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
-	if(peek(q) == "NUMLIT")
+	if(peek(q) == "NUMLIT"){
 		match(s,q,q.front(),"NUMLIT",flag);
+		// return new ConstLitNode<int>(q.front().lexeme,"NUMLIT");
+	}
 }
 
 void booLit(stack<tokenObject> s, queue<tokenObject> & q, int & flag)
 {
-	if(peek(q) == "BOOLIT")
+	if(peek(q) == "BOOLIT"){
 		match(s,q,q.front(),"BOOLIT",flag);
+		// return new ConstLitNode<bool>(q.front().lexeme,"BOOLIT");
+
+	}
 }
 
 void ident(stack<tokenObject> s, queue<tokenObject> & q, int & flag)

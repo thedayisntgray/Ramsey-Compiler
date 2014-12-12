@@ -6,5 +6,4 @@ fun factorial(in x) as in
     endif
     toss x
 endfun
-in x
-in y <- factorial(x)
+

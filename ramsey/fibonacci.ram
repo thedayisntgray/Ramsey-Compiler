@@ -1,0 +1,12 @@
+fun fibonacci(in x) as in
+	if (x = 0 or x = 1)
+		toss x
+	else
+		toss fibonacci(x-1)+fibonacci(x-2)
+	endif
+	toss x
+endfun
+
+fun lessThan(in x, in y) as boo
+	toss x < y
+endfun

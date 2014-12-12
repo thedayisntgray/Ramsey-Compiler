@@ -1,0 +1,157 @@
+EOL
+Entering toplvlstmts 
+Entering Function toplvlstmt
+Error on line 2
+MATCHED TOKEN: EOL
+NEXT TOKEN: FUN
+Entering toplvlstmts 
+Entering Function toplvlstmt
+MATCHED TOKEN: FUN
+NEXT TOKEN: IDENT
+current front->factorial
+Entering function ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: LPAREN
+MATCHED TOKEN: LPAREN
+NEXT TOKEN: TYPE
+Entering Function opt_params
+Entering Function params
+Entering Function param
+Entering type 
+MATCHED TOKEN: TYPE
+NEXT TOKEN: IDENT
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: RPAREN
+Enter function param
+Entering Function paramsA
+MATCHED TOKEN: RPAREN
+NEXT TOKEN: AS
+MATCHED TOKEN: AS
+NEXT TOKEN: TYPE
+Entering type 
+MATCHED TOKEN: TYPE
+NEXT TOKEN: EOL
+MATCHED TOKEN: EOL
+NEXT TOKEN: IF
+Entering Function fun_stmts
+Entering Function stmt
+Entering Function stmt
+MATCHED TOKEN: IF
+NEXT TOKEN: LPAREN
+MATCHED TOKEN: LPAREN
+NEXT TOKEN: IDENT
+Entering Function boolexp
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: COMPOP
+Enter function param
+Entering Function evalToBoolFollow
+Entering Function numExprTail_w_op
+----------COMPOP
+Entering boolop 
+MATCHED TOKEN: COMPOP
+NEXT TOKEN: NUMLIT
+Entering Function boolNumExprTail
+Entering Function numExpr
+MATCHED TOKEN: NUMLIT
+NEXT TOKEN: RPAREN
+Entering Function numExprTail_w_op
+----------RPAREN
+Entering Function boolExprTail
+MATCHED TOKEN: RPAREN
+NEXT TOKEN: EOL
+MATCHED TOKEN: EOL
+NEXT TOKEN: TOSS
+Entering Function optional_stmts
+Entering Function fun_stmts
+MATCHED TOKEN: TOSS
+NEXT TOKEN: IDENT
+Entering Function expr
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: EOL
+Enter function param
+Entering Function exprTailB
+Entering Function boolExprTail
+MATCHED TOKEN: EOL
+NEXT TOKEN: ELSE
+Entering Function stmtA
+PEEK OF Q IN STATEMENT A ELSE
+MATCHED TOKEN: ELSE
+NEXT TOKEN: EOL
+MATCHED TOKEN: EOL
+NEXT TOKEN: TOSS
+Entering Function optional_stmts
+Entering Function fun_stmts
+MATCHED TOKEN: TOSS
+NEXT TOKEN: LPAREN
+Entering Function expr
+MATCHED TOKEN: LPAREN
+NEXT TOKEN: IDENT
+Entering Function parenExpr
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: NUMOP
+Enter function param
+Entering Function exprTailBParen
+Entering op 
+MATCHED TOKEN: NUMOP
+NEXT TOKEN: IDENT
+Entering Function numExpr
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: LPAREN
+Enter function param
+MATCHED TOKEN: LPAREN
+NEXT TOKEN: IDENT
+Entering Function expr
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: NUMOP
+Enter function param
+Entering Function exprTailB
+Entering op 
+MATCHED TOKEN: NUMOP
+NEXT TOKEN: NUMLIT
+Entering Function numExpr
+MATCHED TOKEN: NUMLIT
+NEXT TOKEN: RPAREN
+Entering Function numExprTail_w_op
+----------RPAREN
+Entering Function numExprTail_w_op
+----------RPAREN
+MATCHED TOKEN: RPAREN
+NEXT TOKEN: RPAREN
+Entering Function exprTailA
+Entering Function parenExpr
+MATCHED TOKEN: RPAREN
+NEXT TOKEN: EOL
+MATCHED TOKEN: EOL
+NEXT TOKEN: ENDIF
+MATCHED TOKEN: ENDIF
+NEXT TOKEN: EOL
+Entering Function stmtX
+MATCHED TOKEN: EOL
+NEXT TOKEN: TOSS
+MATCHED TOKEN: TOSS
+NEXT TOKEN: IDENT
+Entering Function expr
+Entering ident 
+MATCHED TOKEN: IDENT
+NEXT TOKEN: EOL
+Enter function param
+Entering Function exprTailB
+Entering Function boolExprTail
+MATCHED TOKEN: EOL
+NEXT TOKEN: ENDFUN
+MATCHED TOKEN: ENDFUN
+NEXT TOKEN: 
+End of toplvlstmt
+Invalid Token matching on line 0
+*Invalid Token *EOL
+Leaving function program...
+Leaving function program...
+Leaving function program...
+Failure
+
